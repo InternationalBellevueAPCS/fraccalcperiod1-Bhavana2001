@@ -8,10 +8,13 @@ public class FracCalc {
     public static void main(String[] args) 
     {
     	Scanner console = new Scanner(System.in);
-    	System.out.println("enter numbers");
-    	String input = console.nextLine();
-    	
-    	produceAnswer(input);
+    	String input = " ";
+    	while (input != "quit" ) {
+    		System.out.println("enter numbers"); //removeable
+    		input = console.nextLine();
+    		
+    		produceAnswer(input);
+    	}
         // TODO: Read the input from the user and call produceAnswer with an equation
         // Checkpoint 1: Create a Scanner, read one line of input, pass that input to produceAnswer, print the result.
         // Checkpoint 2: Accept user input multiple times.
@@ -26,7 +29,12 @@ public class FracCalc {
      */
     public static String produceAnswer(String input)
     { 
+    	String whole= "0";
+		String numerator= "0";
+		String denominator= "0";
+		
     	int spaces =0;
+    	
     	while (spaces !=-1) {
     		
     		spaces=input.indexOf(" ");
@@ -37,6 +45,29 @@ public class FracCalc {
     	}
     	System.out.println(input);
     	
+    	if (input.indexOf("_")!= -1) {
+    		whole= input.substring(0,(input.indexOf("_")));
+    		
+    		if (input.indexOf("/")!= -1) {
+    			numerator= input.substring((input.indexOf("_")+1),(input.indexOf("/")));
+    			denominator= input.substring((input.indexOf("/")+1),((input.length())));
+    		}else {
+    			numerator= "0";
+    			denominator= "0";
+    		}		
+    	}
+    	else if (input.indexOf("/")!= -1) {
+    		whole= "0";
+    		numerator= input.substring(0,(input.indexOf("/")));
+    		denominator= input.substring((input.indexOf("/")+1),((input.length())));
+    		
+    	}//else {
+    		//whole= "0";
+    		//numerator= "0";
+			//denominator= "0";
+    		
+    	//}
+    	System.out.println("whole:" + whole + " numerator:" + numerator + " denominator:" + denominator);
         // TODO: Implement this function to produce the solution to the input
         // Checkpoint 1: Return the second operand.  Example "4/5 * 1_2/4" returns "1_2/4".
         // Checkpoint 2: Return the second operand as a string representing each part.
