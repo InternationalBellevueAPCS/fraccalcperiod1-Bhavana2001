@@ -10,7 +10,7 @@ public class FracCalc {
     	Scanner console = new Scanner(System.in);
     	String input = " ";
     	while (input != "quit" ) {
-    		System.out.println("enter numbers"); //removeable
+    		//System.out.println("enter numbers"); //removeable
     		input = console.nextLine();
     		
     		produceAnswer(input);
