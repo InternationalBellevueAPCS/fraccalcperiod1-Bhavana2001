@@ -8,13 +8,17 @@ public class FracCalc {
     public static void main(String[] args) 
     {
     	Scanner console = new Scanner(System.in);
-    	String input = " ";
-    	while (input != "quit" ) {
-    		//System.out.println("enter numbers"); //removeable
-    		input = console.nextLine();
+    	
+    	System.out.println("enter numbers"); //removeable
+    	String originalInput = console.nextLine();
+    	
+    	while (! originalInput.equals("quit")) {
+    		produceAnswer(originalInput);
+    		System.out.println("enter numbers"); //removeable
+    		originalInput = console.nextLine();
     		
-    		produceAnswer(input);
     	}
+    	
         // TODO: Read the input from the user and call produceAnswer with an equation
         // Checkpoint 1: Create a Scanner, read one line of input, pass that input to produceAnswer, print the result.
         // Checkpoint 2: Accept user input multiple times.
@@ -29,45 +33,111 @@ public class FracCalc {
      */
     public static String produceAnswer(String input)
     { 
-    	String whole= "0";
-		String numerator= "0";
-		String denominator= "0";
+    	String firstWhole= "0";
+		String firstNumerator= "0";
+		String firstDenominator= "0";
 		
-    	int spaces =0;
+    	String secondWhole= "0";
+		String secondNumerator= "0";
+		String secondDenominator= "0";
+			
+    	int spaces = input.indexOf(" ");
     	
-    	while (spaces !=-1) {
+    	// first operand
+    	String firstOperand = input.substring(0, spaces);
+    	//System.out.println(firstOperand);
+    	
+    	// operation
+    	String operation = input.substring(spaces+1,spaces+2 );
+    	//System.out.println(operation);
+    	
+    	//System.out.println(spaces); [this is just to check and it can be ignored]
+    	String secondOperand = input.substring((spaces+3), input.length());
+    	System.out.println(secondOperand);
+    	
+    	//System.out.println(input);
+    	
+    	
+    	
+    	if (firstOperand.indexOf("_")!= -1) {
+    		firstWhole= firstOperand.substring(0,(firstOperand.indexOf("_")));
     		
-    		spaces=input.indexOf(" ");
-    	
-    		//System.out.println(spaces); [this is just to check and it can be ignored]
-    	
-    		input =input.substring((spaces+1), input.length());
-    	}
-    	System.out.println(input);
-    	
-    	if (input.indexOf("_")!= -1) {
-    		whole= input.substring(0,(input.indexOf("_")));
-    		
-    		if (input.indexOf("/")!= -1) {
-    			numerator= input.substring((input.indexOf("_")+1),(input.indexOf("/")));
-    			denominator= input.substring((input.indexOf("/")+1),((input.length())));
+    		if (firstOperand.indexOf("/")!= -1) {
+    			firstNumerator= firstOperand.substring((firstOperand.indexOf("_")+1),(firstOperand.indexOf("/")));
+    			firstDenominator= firstOperand.substring((firstOperand.indexOf("/")+1),((firstOperand.length())));
     		}else {
-    			numerator= "0";
-    			denominator= "0";
+    			firstNumerator= "0";
+    			firstDenominator= "0";
     		}		
     	}
-    	else if (input.indexOf("/")!= -1) {
-    		whole= "0";
-    		numerator= input.substring(0,(input.indexOf("/")));
-    		denominator= input.substring((input.indexOf("/")+1),((input.length())));
+    	else if (firstOperand.indexOf("/")!= -1) {
+    		firstWhole= "0";
+    		firstNumerator= firstOperand.substring(0,(firstOperand.indexOf("/")));
+    		firstDenominator= firstOperand.substring((firstOperand.indexOf("/")+1),((firstOperand.length())));
     		
-    	}//else {
-    		//whole= "0";
-    		//numerator= "0";
-			//denominator= "0";
+    	}
+    	else if (firstOperand.indexOf("/")== -1 && firstOperand.indexOf("_")== -1 ) {
+    		firstWhole= firstOperand.substring((0),firstOperand.length());
+    		firstNumerator= "0";
+    		firstDenominator= "0";
     		
-    	//}
-    	System.out.println("whole:" + whole + " numerator:" + numerator + " denominator:" + denominator);
+    	}
+    	//System.out.println("whole:" + firstWhole + " numerator:" + firstNumerator + " denominator:" + firstDenominator);
+    	
+    	int newFirstWhole=Integer.parseInt(firstWhole);
+    	int newFirstNumerator=Integer.parseInt(firstNumerator);
+    	int newFirstDenominator=Integer.parseInt(firstDenominator);
+    	
+    	if (secondOperand.indexOf("_")!= -1) {
+    		secondWhole= secondOperand.substring(0,(secondOperand.indexOf("_")));
+    		
+    		if (secondOperand.indexOf("/")!= -1) {
+    			secondNumerator= secondOperand.substring((secondOperand.indexOf("_")+1),(secondOperand.indexOf("/")));
+    			secondDenominator= secondOperand.substring((secondOperand.indexOf("/")+1),((secondOperand.length())));
+    		}else {
+    			secondNumerator= "0";
+    			secondDenominator= "0";
+    		}		
+    	}
+    	else if (secondOperand.indexOf("/")!= -1) {
+    		 secondWhole= "0";
+    		 secondNumerator= secondOperand.substring(0,(secondOperand.indexOf("/")));
+    		 secondDenominator= secondOperand.substring((secondOperand.indexOf("/")+1),((secondOperand.length())));
+    		
+    	}
+    	else if (secondOperand.indexOf("/")== -1 && secondOperand.indexOf("_")== -1 ) {
+    		 secondWhole= secondOperand.substring((0),secondOperand.length());
+    		 secondNumerator= "0";
+    		 secondDenominator= "0";
+    		
+    	}
+    	System.out.println("whole:" + secondWhole + " numerator:" + secondNumerator + " denominator:" + secondDenominator);
+    	
+    	int newSecondWhole=Integer.parseInt(secondWhole);
+    	int newSecondNumerator=Integer.parseInt(secondNumerator);
+    	int newSecondDenominator=Integer.parseInt(secondDenominator);
+    	int newDenominator =0; 
+    	
+    	if (newFirstDenominator==newSecondDenominator) {
+    		newDenominator = newSecondDenominator ;
+    		
+    		
+    	}else{
+    		newDenominator =newFirstDenominator*newSecondDenominator ;
+    	}
+    	
+    	newFirstNumerator= (newFirstNumerator*newSecondDenominator);
+		newSecondNumerator = (newSecondNumerator*newFirstDenominator);
+		//System.out.println("newDenominator = " + newDenominator);
+		//System.out.println("newFirstNumerator= " +newFirstNumerator);
+		//System.out.println("newSecondNumerator= " + newSecondNumerator);
+    	int newNumerator = 0;
+    	int newWhole = newFirstWhole + newSecondWhole;
+		if (operation.equals("+")) {
+			newNumerator = newFirstNumerator + newSecondNumerator;
+			
+		}
+		System.out.println(newWhole + "_" + newNumerator+ "/" + newDenominator);
         // TODO: Implement this function to produce the solution to the input
         // Checkpoint 1: Return the second operand.  Example "4/5 * 1_2/4" returns "1_2/4".
         // Checkpoint 2: Return the second operand as a string representing each part.
@@ -77,8 +147,10 @@ public class FracCalc {
         //               Note: Answer does not need to be reduced, but it must be correct.
         // Final project: All answers must be reduced.
         //               Example "4/5 * 1_2/4" returns "1_1/5".
+    	
+        return (" ");
         
-        return "";
+        
     }
 
     // TODO: Fill in the space below with helper methods
@@ -102,7 +174,9 @@ public class FracCalc {
             min = max % min;
             max = tmp;
         }
+        System.out.print(max);
         return max;
+        
     }
     
     /**
